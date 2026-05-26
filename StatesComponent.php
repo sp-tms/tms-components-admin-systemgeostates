@@ -46,7 +46,7 @@ class StatesComponent extends BaseComponent
                 // 'includeQ'              => true,
                 'actionsToEnable'       =>
                 [
-                    'view'      => 'system/geo/states',
+                    'edit'      => 'system/geo/states',
                 ]
             ];
 
@@ -73,9 +73,9 @@ class StatesComponent extends BaseComponent
             $this->geoStates,
             'system/geo/states/view',
             null,
-            ['name', 'state_code', 'country_id'],
+            ['name', 'country_id'],
             true,
-            ['name', 'state_code', 'country_id'],
+            ['name', 'country_id'],
             $controlActions,
             null,
             $replaceColumns,
@@ -91,7 +91,14 @@ class StatesComponent extends BaseComponent
      */
     public function addAction()
     {
-        //
+        $this->requestIsPost();
+
+        $this->geoStates->addState($this->postData());
+
+        $this->addResponse(
+            $this->geoStates->packagesData->responseMessage,
+            $this->geoStates->packagesData->responseCode
+        );
     }
 
     /**
@@ -99,7 +106,14 @@ class StatesComponent extends BaseComponent
      */
     public function updateAction()
     {
-        //
+        $this->requestIsPost();
+
+        $this->geoStates->updateState($this->postData());
+
+        $this->addResponse(
+            $this->geoStates->packagesData->responseMessage,
+            $this->geoStates->packagesData->responseCode
+        );
     }
 
     public function searchStateAction()
